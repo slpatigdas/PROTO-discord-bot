@@ -26,13 +26,13 @@ client.on('messageCreate', message => {
     if (message.author.bot) return;
 
     // A simple Hi-Hello command
-    if (message.content === 'hi') {
+    if (content === 'hi') {
         message.channel.send(`Hello ${message.author.displayName}!`);
 
     }
 
     //Switch Command Statement
-    switch (message.content) {
+    switch (content) {
 
   case "!news": {
     const userId = message.author.id;
@@ -99,7 +99,5 @@ client.on('messageCreate', message => {
 }
 
 });
-
 // Log in to Discord with your app's token
 client.login(process.env.DISCORD_TOKEN);
-
