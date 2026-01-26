@@ -2,6 +2,17 @@ require('dotenv').config();
 const axios = require('axios');
 const { Client, GatewayIntentBits } = require('discord.js');
 const { logCommand, getHistory } = require('./commandLogger');
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Bot is running!');
+});
+
+app.listen(3000, () => {
+  console.log('Keep-alive server running');
+});
+
 
 const client = new Client({
   intents: [
@@ -53,7 +64,7 @@ client.on('messageCreate', async message => {
     case '!reddit': {
       try {
         const res = await axios.get('https://www.reddit.com/r/technology/top.json?limit=5');
-        let msg = '**👽 Reddit /r/technology:**\n\n';
+        let msg = '**Reddit /r/technology:**\n\n';
 
         res.data.data.children.forEach((post, i) => {
           msg += `**${i + 1}. ${post.data.title}**\nhttps://reddit.com${post.data.permalink}\n\n`;
@@ -93,7 +104,7 @@ client.on('messageCreate', async message => {
         return message.channel.send('No command history yet.');
       }
 
-      let msg = '**📜 Recent Commands:**\n\n';
+      let msg = '**Recent Commands:**\n\n';
       history.forEach(h => {
         msg += `• **${h.user}** used \`${h.command}\`\n`;
       });
@@ -104,11 +115,14 @@ client.on('messageCreate', async message => {
     
     case "!compliment": {
     const compliments = [
-      "You're looking sharp there!",
-      "Did you know you're in Minecraft? If you pick up lava, you'll get an advancement called 'Hot Stuff'.",
-      "Hey, don’t forget to be yourself — you’re already pretty awesome!",
+      "You're looking sharp there!😉",
+      "Did you know you're in Minecraft? If you pick up lava, you'll get an advancement called 'Hot Stuff🔥'.",
+      "Hey, don’t forget to be yourself — you’re already pretty awesome!😁",
       "Whoa, did I hit a jackpot or is it just you?",
-      "Are your parents bakers? Because they made you a sweetie-pie!"
+      "Are your parents bakers? Because they made you a sweetie-pie!",
+      "You're doing better than you think 💙",
+      "Certified main character energy ✨",
+      "You dropped this 👑"
     ];
 
     const random = compliments[Math.floor(Math.random() * compliments.length)];
